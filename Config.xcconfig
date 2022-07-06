@@ -1,0 +1,22 @@
+//
+//  Config.xcconfig
+//  Weather
+//
+//  Created by Armin on 7/6/22.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// MARK: - App versions
+WEATHER_APP_VERSION = 1.0.0
+WEATHER_APP_BUNDLE_VERSION = 1
+
+// MARK: - App display name
+WEATHER_APP_NAME = Weather
+
+// MARK: - App Bundle Identifier
+WEATHER_APP_ID = com.app.weather-${DEVELOPMENT_TEAM}
+
+// MARK: - API Configs
+OPEN_WEATHER_API_KEY = 0
