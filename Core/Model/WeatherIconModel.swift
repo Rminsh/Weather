@@ -5,7 +5,7 @@
 //  Created by Armin on 7/6/22.
 //
 
-import Foundation
+import SwiftUI
 
 enum WeatherIconModel: String {
     case clearSkyDay
@@ -41,7 +41,7 @@ enum WeatherIconModel: String {
         case .showerRain:
             return "cloud.heavyrain.fill"
         case .rain:
-            return "cloud.rain"
+            return "cloud.rain.fill"
         case .thunderstorm:
             return "cloud.bolt.rain.fill"
         case .snow:
@@ -50,6 +50,35 @@ enum WeatherIconModel: String {
             return "cloud.fog.fill"
         case .unknown:
             return "questionmark.circle.fill"
+        }
+    }
+    
+    var gradients: [Color] {
+        switch self {
+        case .clearSkyDay:
+            return [Color("ClearDayStart"), Color("ClearDayEnd")]
+        case .clearSkyNight:
+            return [Color("ClearNightStart"), Color("ClearNightEnd")]
+        case .fewCloudsDay:
+            return [Color("ClearDayStart"), Color("ClearDayEnd")]
+        case .fewCloudsNight:
+            return [Color("ClearNightStart"), Color("ClearNightEnd")]
+        case .scatteredClouds:
+            return [Color("ClearDayStart"), Color("ClearDayEnd")]
+        case .brokenClouds:
+            return [Color("ClearDayStart"), Color("ClearDayEnd")]
+        case .showerRain:
+            return [Color("RainyStart"), Color("RainyEnd")]
+        case .rain:
+            return [Color("RainyStart"), Color("RainyEnd")]
+        case .thunderstorm:
+            return [Color("SnowStart"), Color("SnowMiddle"), Color("SnowEnd")]
+        case .snow:
+            return [Color("SnowStart"), Color("SnowMiddle"), Color("SnowEnd")]
+        case .mist:
+            return [Color("SnowStart"), Color("SnowMiddle"), Color("SnowEnd")]
+        case .unknown:
+            return [.blue, .cyan]
         }
     }
 }

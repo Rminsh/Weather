@@ -15,7 +15,11 @@ struct WeatherListView: View {
         NavigationView {
             List {
                 ForEach(model.cities, id: \.id) { city in
-                    CityListItem(city: city)
+                    NavigationLink {
+                        WeatherDetailView(city: city)
+                    } label: {
+                        CityListItem(city: city)
+                    }
                 }
             }
             .listStyle(.sidebar)

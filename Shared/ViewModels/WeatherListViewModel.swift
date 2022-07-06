@@ -17,7 +17,10 @@ class WeatherListViewModel: ObservableObject {
     private var weatherService = WeatherService()
     
     func getListData() async {
-        self.error = nil
+        DispatchQueue.main.async {
+            self.error = nil
+        }
+        
         Task(priority: .background) {
             let result = try await weatherService.getWeatherGroup(
                 cities: ["2711537","2673730","5375480","2643743","5128581","2950159"],

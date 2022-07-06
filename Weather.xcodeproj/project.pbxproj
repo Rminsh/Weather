@@ -37,6 +37,8 @@
 		C66896E02875B351001702BA /* WeatherListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66896CE2875B350001702BA /* WeatherListView.swift */; };
 		C66896E12875B351001702BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C66896CF2875B350001702BA /* Assets.xcassets */; };
 		C66896E22875B351001702BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C66896CF2875B350001702BA /* Assets.xcassets */; };
+		C6FFA7032876106A00EC740C /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FFA7022876106A00EC740C /* WeatherDetailView.swift */; };
+		C6FFA7042876106A00EC740C /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6FFA7022876106A00EC740C /* WeatherDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,7 @@
 		C66896DA2875B351001702BA /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C66896DC2875B351001702BA /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		C66896EC2875B383001702BA /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		C6FFA7022876106A00EC740C /* WeatherDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,8 +193,9 @@
 		C66896EB2875B367001702BA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C66896CE2875B350001702BA /* WeatherListView.swift */,
 				C639552F28760A040046621C /* CityListItem.swift */,
+				C6FFA7022876106A00EC740C /* WeatherDetailView.swift */,
+				C66896CE2875B350001702BA /* WeatherListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +318,7 @@
 				C639552D2875F0A10046621C /* WeatherIconModel.swift in Sources */,
 				C63955082875C21F0046621C /* WeatherModel.swift in Sources */,
 				C639552A2875DC5B0046621C /* WeatherListViewModel.swift in Sources */,
+				C6FFA7032876106A00EC740C /* WeatherDetailView.swift in Sources */,
 				C639550C2875C8980046621C /* Endpoint.swift in Sources */,
 				C66896DD2875B351001702BA /* WeatherApp.swift in Sources */,
 			);
@@ -335,6 +340,7 @@
 				C639552E2875F0A10046621C /* WeatherIconModel.swift in Sources */,
 				C63955092875C21F0046621C /* WeatherModel.swift in Sources */,
 				C639552B2875DC5B0046621C /* WeatherListViewModel.swift in Sources */,
+				C6FFA7042876106A00EC740C /* WeatherDetailView.swift in Sources */,
 				C639550D2875C8980046621C /* Endpoint.swift in Sources */,
 				C66896DE2875B351001702BA /* WeatherApp.swift in Sources */,
 			);
