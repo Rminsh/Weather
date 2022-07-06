@@ -22,6 +22,9 @@ struct WeatherListView: View {
                     }
                 }
             }
+            #if os(macOS)
+            .frame(minWidth: 300)
+            #endif
             .listStyle(.sidebar)
             .navigationTitle("Weather")
             .task {

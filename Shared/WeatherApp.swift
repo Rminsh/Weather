@@ -13,5 +13,9 @@ struct WeatherApp: App {
         WindowGroup {
             WeatherListView()
         }
+        #if os(macOS)
+        .windowStyle(.hiddenTitleBar)
+        .windowToolbarStyle(.unified)
+        #endif
     }
 }

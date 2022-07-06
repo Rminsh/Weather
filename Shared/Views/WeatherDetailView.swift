@@ -61,8 +61,10 @@ struct WeatherDetailView: View {
             }
         }
         .navigationTitle(city.name)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
-        .preferredColorScheme(.dark)
+        #endif
+        .environment(\.colorScheme, .dark)
     }
     
     func cleanTemp(_ temp: Double) -> Measurement<UnitTemperature> {
