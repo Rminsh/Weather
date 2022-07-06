@@ -1,0 +1,43 @@
+//
+//  RequestError.swift
+//  Weather
+//
+//  Created by Armin on 7/6/22.
+//
+
+import Foundation
+
+public enum RequestError: Error {
+    case decode
+    case invalidURL
+    case noResponse
+    case unauthorized(Data)
+    case unexpectedStatusCode(Int)
+    case unknown(String)
+}
+
+extension RequestError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .decode:
+            return NSLocalizedString("Parsing error", comment: "")
+        case .invalidURL:
+            return NSLocalizedString("Network error", comment: "Invalid URL")
+        case .noResponse:
+            return NSLocalizedString("Network error", comment: "no response")
+        case .unauthorized(let message):
+            return NSLocalizedString("Unauthorized: \(message)", comment: "no response")
+        case .unexpectedStatusCode(let status):
+            return NSLocalizedString("Unexpected Status Code \(status) occured", comment: "")
+        case .unknown(let message):
+            return NSLocalizedString(message, comment: "")
+        }
+    }
+}
+
+extension RequestError: Identifiable {
+    public var id: String? {
+        errorDescription
+    }
+}
+

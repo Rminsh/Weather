@@ -8,6 +8,11 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
+// The `WEATHER_APP_ID` configuration is to make it easier to build
+// and run the project. Once you set your project's development team,
+// you'll have a unique bundle identifier. This is because the bundle identifier
+// is derived based on the 'WEATHER_APP_ID' value.
+
 // MARK: - App versions
 WEATHER_APP_VERSION = 1.0.0
 WEATHER_APP_BUNDLE_VERSION = 1
