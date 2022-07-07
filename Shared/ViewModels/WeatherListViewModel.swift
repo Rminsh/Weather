@@ -5,14 +5,29 @@
 //  Created by Armin on 7/6/22.
 //
 
-import Foundation
+import SwiftUI
 
 class WeatherListViewModel: ObservableObject {
     
-    @Published var cities: [CityDetail] = [CityDetail]()
+    @AppStorage("savedCities") var savedCities: [String] = [
+        "2711537", // Gothenburg
+        "2673730", // Stockholm
+        "5375480", // Mountain View
+        "2643743", // London
+        "5128581", // New York
+        "2950159"  // Berlin
+    ]
     
+    // WeatherList
+    @Published var cities: [CityDetail] = [CityDetail]()
     @Published var loading: Bool = false
     @Published var error: String? = nil
+    
+    // AddCity
+    @Published var showAddCityView: Bool = false
+    @Published var addCityName: String = ""
+    @Published var addLoading: Bool = false
+    @Published var addError: String = ""
     
     private var weatherService = WeatherService()
     
@@ -23,7 +38,7 @@ class WeatherListViewModel: ObservableObject {
         
         Task(priority: .background) {
             let result = try await weatherService.getWeatherGroup(
-                cities: ["2711537","2673730","5375480","2643743","5128581","2950159"],
+                cities: savedCities,
                 unit: "metric"
             )
             
@@ -50,6 +65,51 @@ class WeatherListViewModel: ObservableObject {
                     setErrorMessage("Unexpected Status Code \(status) occured")
                 case .unknown(_):
                     setErrorMessage("Network error, Try again")
+                }
+            }
+        }
+    }
+    
+    func addCity() async {
+        DispatchQueue.main.async {
+            self.addError = ""
+            self.addLoading = true
+        }
+        
+        Task(priority: .background) {
+            let result = try await weatherService.getWeatherOfCity(
+                city: addCityName,
+                unit: "metric"
+            )
+            
+            DispatchQueue.main.async {
+                self.addLoading = false
+            }
+            
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.savedCities.append(String(response.id))
+                    self.showAddCityView = false
+                    self.cities.removeAll()
+                    Task.init {
+                        await self.getListData()
+                    }
+                }
+            case .failure(let error):
+                switch error {
+                case .decode:
+                    self.addError = "Failed to execute, try later"
+                case .invalidURL:
+                    self.addError = "Invalid URL"
+                case .noResponse:
+                    self.addError = "Network error, Try again"
+                case .unauthorized(let data):
+                    self.addError = try await decodeErrorMessage(data)
+                case .unexpectedStatusCode(let status):
+                    self.addError = "Unexpected Status Code \(status) occured"
+                case .unknown(_):
+                    self.addError = "Network error, Try again"
                 }
             }
         }

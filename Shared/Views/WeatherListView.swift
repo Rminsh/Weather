@@ -39,7 +39,23 @@ struct WeatherListView: View {
             .listStyle(.sidebar)
             .navigationTitle("Weather")
             .searchable(text: $searchText, placement: .sidebar)
+            .popover(isPresented: $model.showAddCityView) {
+                AddCityView(
+                    cityName: $model.addCityName,
+                    loading: $model.addLoading,
+                    warningMessage: $model.addError
+                ) {
+                    Task.init {
+                        await model.addCity()
+                    }
+                }
+            }
             .toolbar {
+                ToolbarItem {
+                    Button(action: {model.showAddCityView = true}) {
+                        Label("Add city", systemImage: "plus")
+                    }
+                }
                 ToolbarItem {
                     Menu {
                         Toggle(isOn: $iconStyle) {

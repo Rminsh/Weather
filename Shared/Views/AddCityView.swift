@@ -9,11 +9,10 @@ import SwiftUI
 
 struct AddCityView: View {
     
+    @Binding var cityName: String
     @Binding var loading: Bool
     @Binding var warningMessage: String
     @State var action: () -> Void
-    
-    @State private var searchCity = ""
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -50,7 +49,7 @@ struct AddCityView: View {
             Text("Add City")
             
             Label {
-                TextField("City name", text: $searchCity)
+                TextField("City name", text: $cityName)
                     .frame(maxWidth: 250)
                     
             } icon: {
@@ -87,6 +86,7 @@ struct AddCityView: View {
 struct AddCityView_Previews: PreviewProvider {
     static var previews: some View {
         AddCityView(
+            cityName: .constant(""),
             loading: .constant(false),
             warningMessage: .constant(""),
             action: {}
