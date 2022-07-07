@@ -40,6 +40,10 @@ struct CityDetail: Codable {
     let clouds: Clouds
     let dt, id: Int
     let name: String
+    
+    var cleanVisibility: Measurement<UnitLength> {
+        return Measurement<UnitLength>(value: Double(visibility), unit: .meters)
+    }
 }
 
 extension CityDetail {
@@ -104,6 +108,32 @@ struct WeatherMain: Codable {
         case tempMax = "temp_max"
         case pressure, humidity
     }
+    
+    var cleanTemp: Measurement<UnitTemperature> {
+        return cleanTemp(temp)
+    }
+    
+    var cleanFeelsLike: Measurement<UnitTemperature> {
+        return cleanTemp(feelsLike)
+    }
+    
+    var cleanTempMin: Measurement<UnitTemperature> {
+        return cleanTemp(tempMin)
+    }
+    
+    var cleanTempMax: Measurement<UnitTemperature> {
+        return cleanTemp(tempMax)
+    }
+    
+    var cleanPressure: Measurement<UnitPressure> {
+        return Measurement<UnitPressure>(value: Double(pressure), unit: .bars)
+    }
+}
+
+extension WeatherMain {
+    func cleanTemp(_ temp: Double) -> Measurement<UnitTemperature> {
+        return Measurement<UnitTemperature>(value: temp, unit: .celsius)
+    }
 }
 
 // MARK: - Sys
@@ -128,6 +158,10 @@ struct WeatherDetail: Codable {
 struct Wind: Codable {
     let speed: Double
     let deg: Int
+    
+    var cleanSpeed: Measurement<UnitSpeed> {
+        return Measurement<UnitSpeed>(value: speed, unit: .kilometersPerHour)
+    }
 }
 
 struct OpenWeatherError: Codable {
