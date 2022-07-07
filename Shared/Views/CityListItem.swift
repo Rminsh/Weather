@@ -47,16 +47,16 @@ struct CityListItem: View {
             Spacer()
             
             VStack(alignment: .trailing) {
-                Text(mf.string(from: cleanTemp(city.main.temp)))
+                Text(mf.string(from: city.main.cleanTemp))
                     .font(.system(.largeTitle, design: .rounded))
                     .dynamicTypeSize(.xSmall ... .xLarge)
                     .lineLimit(1)
                     .minimumScaleFactor(0.4)
                 
                 HStack {
-                    Text("H:\(mf.string(from: cleanTemp(city.main.tempMax)))")
+                    Text("H:\(mf.string(from: city.main.cleanTempMax))")
                     
-                    Text("L:\(mf.string(from: cleanTemp(city.main.tempMin)))")
+                    Text("L:\(mf.string(from: city.main.cleanTempMin))")
                 }
                 .font(.body)
                 .dynamicTypeSize(.xSmall ... .small)
@@ -66,11 +66,8 @@ struct CityListItem: View {
             }
         }
     }
-    
-    func cleanTemp(_ temp: Double) -> Measurement<UnitTemperature> {
-        return Measurement<UnitTemperature>(value: temp, unit: .celsius)
-    }
 }
+
 struct CityListItem_Previews: PreviewProvider {
     static var previews: some View {
         CityListItem(
