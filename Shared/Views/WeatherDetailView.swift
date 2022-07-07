@@ -18,6 +18,10 @@ struct WeatherDetailView: View {
         return mf
     }
     
+    let layout = [
+        GridItem(.adaptive(minimum: 150))
+    ]
+    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -29,6 +33,16 @@ struct WeatherDetailView: View {
             
             ScrollView {
                 VStack(spacing: 8) {
+                    // MARK: - City name
+                    #if os(macOS)
+                    Text(city.name)
+                        .font(.title2)
+                        .dynamicTypeSize(.xSmall ... .large)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.4)
+                    #endif
+                    
+                    // MARK: - Weather symbol
                     Image(systemName: WeatherService.getIcon(icon: city.weather.first?.icon ?? "").symbol)
                         .font(.system(size: 120))
                         .dynamicTypeSize(.xSmall ... .xxLarge)
@@ -39,10 +53,12 @@ struct WeatherDetailView: View {
                         .padding(.vertical, 50)
                         .padding(.horizontal)
                     
-                    Text(mf.string(from: cleanTemp(city.main.temp)))
+                    // MARK: - Weather temp
+                    Text(mf.string(from: city.main.cleanTemp))
                         .font(.system(size: 60))
                         .dynamicTypeSize(.xSmall ... .xxLarge)
                     
+                    // MARK: - Weather status
                     Text(city.weather.first?.main ?? "--")
                         .font(.title)
                         .dynamicTypeSize(.xSmall ... .large)
@@ -50,25 +66,56 @@ struct WeatherDetailView: View {
                         .minimumScaleFactor(0.4)
                     
                     HStack {
-                        Text("H:\(mf.string(from: cleanTemp(city.main.tempMax)))")
+                        // MARK: - Low temp
+                        Text("H:\(mf.string(from: city.main.cleanTempMax))")
                         
-                        Text("L:\(mf.string(from: cleanTemp(city.main.tempMin)))")
+                        // MARK: - High temp
+                        Text("L:\(mf.string(from: city.main.cleanTempMin))")
                     }
+                    .padding(.vertical)
                     
-                    
-                    
+                    LazyVGrid(columns: layout) {
+                        // MARK: - Wind
+                        WeatherItemDetailView(
+                            icon: "wind",
+                            title: "WIND",
+                            value: mf.string(from: city.wind.cleanSpeed)
+                        )
+                        // MARK: - Humidity
+                        WeatherItemDetailView(
+                            icon: "humidity.fill",
+                            title: "HUMIDITY",
+                            value: "\(city.main.humidity.formatted())%"
+                        )
+                        // MARK: - FeelsLike
+                        WeatherItemDetailView(
+                            icon: "thermometer",
+                            title: "FEELS LIKE",
+                            value: mf.string(from: city.main.cleanFeelsLike)
+                        )
+                        // MARK: - Pressure
+                        WeatherItemDetailView(
+                            icon: "gauge.medium",
+                            title: "PRESSURE",
+                            value: mf.string(from: city.main.cleanPressure)
+                        )
+                        // MARK: - Visibility
+                        WeatherItemDetailView(
+                            icon: "eye.fill",
+                            title: "VISIBILITY",
+                            value: mf.string(from: city.cleanVisibility)
+                        )
+                    }
+                    .padding()
                 }
             }
         }
-        .navigationTitle(city.name)
         #if os(iOS)
+        .navigationTitle(city.name)
         .navigationBarTitleDisplayMode(.inline)
-        #endif
+        #else
         .environment(\.colorScheme, .dark)
-    }
-    
-    func cleanTemp(_ temp: Double) -> Measurement<UnitTemperature> {
-        return Measurement<UnitTemperature>(value: temp, unit: .celsius)
+        #endif
     }
 }
 
