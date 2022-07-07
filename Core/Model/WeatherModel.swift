@@ -139,7 +139,8 @@ extension WeatherMain {
 // MARK: - Sys
 struct Sys: Codable {
     let country: String
-    let timezone, sunrise, sunset: Int
+    let timezone: Int?
+    let sunrise, sunset: Int
 }
 
 // MARK: - WeatherDetail
