@@ -50,6 +50,7 @@ struct WeatherListView: View {
                                 
                                 Button(action: {
                                     Task.init {
+                                        model.loading = true
                                         await model.getListData()
                                     }
                                 }) {

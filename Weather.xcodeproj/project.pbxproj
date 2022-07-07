@@ -198,8 +198,8 @@
 			children = (
 				C639552F28760A040046621C /* CityListItem.swift */,
 				C6FFA7022876106A00EC740C /* WeatherDetailView.swift */,
-				C66896CE2875B350001702BA /* WeatherListView.swift */,
 				C6F3578B2877399E000FD267 /* WeatherItemDetailView.swift */,
+				C66896CE2875B350001702BA /* WeatherListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
