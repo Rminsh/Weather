@@ -11,6 +11,8 @@ struct WeatherDetailView: View {
     
     @State var city: CityDetail
     
+    @AppStorage("iconStyle") var iconStyle: Bool = true
+    
     var mf: MeasurementFormatter {
         let mf = MeasurementFormatter()
         mf.numberFormatter.maximumFractionDigits = 0
@@ -25,7 +27,7 @@ struct WeatherDetailView: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: WeatherService.getIcon(icon: city.weather.first?.icon ?? "").gradients),
+                gradient: Gradient(colors: city.weather.first?.symbolIcon.gradients ?? [.blue, .cyan]),
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -43,15 +45,36 @@ struct WeatherDetailView: View {
                     #endif
                     
                     // MARK: - Weather symbol
-                    Image(systemName: WeatherService.getIcon(icon: city.weather.first?.icon ?? "").symbol)
-                        .font(.system(size: 120))
-                        .dynamicTypeSize(.xSmall ... .xxLarge)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.4)
-                        .symbolRenderingMode(.multicolor)
-                        .shadow(radius: 1)
-                        .padding(.vertical, 50)
-                        .padding(.horizontal)
+                    if iconStyle {
+                        Image(systemName: city.weather.first?.symbolIcon.symbol ?? "exclamationmark.icloud")
+                            .font(.system(size: 120))
+                            .dynamicTypeSize(.xSmall ... .xxLarge)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.4)
+                            .symbolRenderingMode(.multicolor)
+                            .shadow(radius: 1)
+                            .padding(.vertical, 50)
+                            .padding(.horizontal)
+                    } else {
+                        AsyncImage(url: city.weather.first?.iconURL) { phase in
+                            switch phase {
+                            case .empty:
+                                Color.white.opacity(0.1)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            case .failure(_):
+                                Image(systemName: "exclamationmark.icloud")
+                                    .resizable()
+                                    .scaledToFit()
+                            @unknown default:
+                                Image(systemName: "exclamationmark.icloud")
+                            }
+                        }
+                        .frame(width: 120, height: 120)
+                        .cornerRadius(20)
+                    }
                     
                     // MARK: - Weather temp
                     Text(mf.string(from: city.main.cleanTemp))

@@ -11,6 +11,7 @@ struct WeatherListView: View {
     
     @StateObject var model: WeatherListViewModel = WeatherListViewModel()
     
+    @AppStorage("iconStyle") var iconStyle: Bool = true
     @State private var searchText = ""
     
     var searchResults: [CityDetail] {
@@ -38,6 +39,17 @@ struct WeatherListView: View {
             .listStyle(.sidebar)
             .navigationTitle("Weather")
             .searchable(text: $searchText, placement: .sidebar)
+            .toolbar {
+                ToolbarItem {
+                    Menu {
+                        Toggle(isOn: $iconStyle) {
+                            Label("Icon Style", systemImage: "sparkles")
+                        }
+                    } label: {
+                        Label("Options", systemImage: "ellipsis.circle")
+                    }
+                }
+            }
             .task {
                 model.loading.toggle()
                 await model.getListData()
@@ -72,6 +84,8 @@ struct WeatherListView: View {
                     }
                 }
             }
+            
+            Text("Select a city")
         }
     }
 }
