@@ -11,10 +11,20 @@ struct WeatherListView: View {
     
     @StateObject var model: WeatherListViewModel = WeatherListViewModel()
     
+    @State private var searchText = ""
+    
+    var searchResults: [CityDetail] {
+        if searchText.isEmpty {
+            return model.cities
+        } else {
+            return model.cities.filter { $0.name.contains(searchText) }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
-                ForEach(model.cities, id: \.id) { city in
+                ForEach(searchResults, id: \.id) { city in
                     NavigationLink {
                         WeatherDetailView(city: city)
                     } label: {
@@ -27,6 +37,7 @@ struct WeatherListView: View {
             #endif
             .listStyle(.sidebar)
             .navigationTitle("Weather")
+            .searchable(text: $searchText, placement: .sidebar)
             .task {
                 model.loading.toggle()
                 await model.getListData()
