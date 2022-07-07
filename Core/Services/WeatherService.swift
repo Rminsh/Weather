@@ -36,34 +36,4 @@ struct WeatherService: HTTPClient, WeatherServiceable {
             responseModel: WeatherOfCity.self
         )
     }
-    
-    static func getIcon(icon: String) -> WeatherIconModel {
-        switch icon {
-        case "01d":
-            return .clearSkyDay
-        case "01n":
-            return .clearSkyNight
-        case "02d":
-            return .fewCloudsDay
-        case "02n":
-            return .fewCloudsNight
-        case "03d", "03n":
-            return .scatteredClouds
-        case "04d", "04n":
-            return .brokenClouds
-        case "09d", "09n":
-            return .showerRain
-        case "10d", "10n":
-            return .rain
-        case "11d", "11n":
-            return .thunderstorm
-        case "13d", "13n":
-            return .snow
-        case "50d", "50n":
-            return .mist
-        default:
-            return .unknown
-            
-        }
-    }
 }
