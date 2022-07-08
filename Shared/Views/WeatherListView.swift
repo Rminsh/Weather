@@ -65,7 +65,7 @@ struct WeatherListView: View {
                     }
                 }
                 #if os(iOS)
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
                 #endif
@@ -76,6 +76,7 @@ struct WeatherListView: View {
                         }
                     } label: {
                         Label("Options", systemImage: "ellipsis.circle")
+                            .labelStyle(.iconOnly)
                     }
                 }
             }
