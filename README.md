@@ -15,6 +15,14 @@
 - Open the __`Weather.xcodeproj`__ file with xcode, open the project's file and go to __`Signing & Capabilities`__ and change the __`team`__.
 - Build & run.
 
+### Previews 📱
+
+<p align="center">
+<img src="Preview/preview_1.png" height="600"/>
+<img src="Preview/preview_2.png" height="600"/>
+
+<img src="Preview/preview_3.png" height="600"/>
+
 ### License 📝
 
 Licensed under the [GNU GENERAL PUBLIC LICENSE Version 3](https://github.com/Rminsh/Weather/blob/main/LICENSE.md).
