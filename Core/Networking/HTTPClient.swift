@@ -55,6 +55,8 @@ extension HTTPClient {
                 }
             case 400, 401:
                 return .failure(.unauthorized(data))
+            case 404:
+                return .failure(.notFound)
             default:
                 return .failure(.unexpectedStatusCode(response.statusCode))
             }
