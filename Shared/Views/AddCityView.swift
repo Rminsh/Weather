@@ -80,6 +80,11 @@ struct AddCityView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.4)
         }
+        .onDisappear {
+            self.loading = false
+            self.cityName = ""
+            self.warningMessage = ""
+        }
     }
 }
 
