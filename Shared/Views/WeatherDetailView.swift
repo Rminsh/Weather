@@ -128,6 +128,18 @@ struct WeatherDetailView: View {
                             title: "VISIBILITY",
                             value: mf.string(from: city.cleanVisibility)
                         )
+                        
+                        WeatherItemDetailView(
+                            icon: "sunrise.fill",
+                            title: "SUNRISE",
+                            value: city.sys.sunRiseDate
+                        )
+                        
+                        WeatherItemDetailView(
+                            icon: "sunset.fill",
+                            title: "SUNSET",
+                            value: city.sys.sunsetDate
+                        )
                     }
                     .padding()
                 }

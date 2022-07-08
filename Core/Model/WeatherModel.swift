@@ -141,6 +141,22 @@ struct Sys: Codable {
     let country: String
     let timezone: Int?
     let sunrise, sunset: Int
+    
+    var sunRiseDate: String {
+        return timezoneFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(sunrise)))
+    }
+    
+    var sunsetDate: String {
+        return timezoneFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(sunset)))
+    }
+    
+    private var timezoneFormatter: DateFormatter {
+        let utcDateFormatter = DateFormatter()
+        utcDateFormatter.dateStyle = .none
+        utcDateFormatter.timeStyle = .short
+        utcDateFormatter.timeZone = TimeZone(secondsFromGMT: timezone ?? 0)
+        return utcDateFormatter
+    }
 }
 
 // MARK: - WeatherDetail
