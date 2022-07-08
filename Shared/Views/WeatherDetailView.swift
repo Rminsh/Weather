@@ -113,7 +113,7 @@ struct WeatherDetailView: View {
                         )
                         // MARK: - Pressure
                         WeatherItemDetailView(
-                            icon: "gauge.medium",
+                            icon: "gauge",
                             title: "PRESSURE",
                             value: mf.string(from: city.main.cleanPressure)
                         )

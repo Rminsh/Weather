@@ -34,7 +34,7 @@ struct WeatherItemDetailView: View {
             Spacer()
         }
         .padding()
-        .background(.thinMaterial.opacity(0.2))
+        .background(.ultraThinMaterial)
         .mask {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
         }
