@@ -46,7 +46,11 @@ struct WeatherListView: View {
             #endif
             .listStyle(.sidebar)
             .navigationTitle("Weather")
-            .searchable(text: $searchText, placement: .sidebar)
+            .searchable(
+                text: $searchText,
+                placement: .sidebar,
+                prompt: "Search for cities in the list"
+            )
             .popover(isPresented: $model.showAddCityView) {
                 AddCityView(
                     cityName: $model.addCityName,
