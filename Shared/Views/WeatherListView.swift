@@ -63,17 +63,17 @@ struct WeatherListView: View {
                 }
             }
             .toolbar {
-                ToolbarItem {
-                    Button(action: {model.showAddCityView = true}) {
-                        Label("Add city", systemImage: "plus")
-                    }
-                }
+                
                 #if os(iOS)
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
-                #endif
-                ToolbarItem {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: {model.showAddCityView = true}) {
+                        Label("Add city", systemImage: "plus")
+                    }
+                    
+                    
                     Menu {
                         Toggle(isOn: $iconStyle) {
                             Label("Icon Style", systemImage: "sparkles")
@@ -83,6 +83,22 @@ struct WeatherListView: View {
                             .labelStyle(.iconOnly)
                     }
                 }
+                #else
+                ToolbarItemGroup {
+                    Button(action: {model.showAddCityView = true}) {
+                        Label("Add city", systemImage: "plus")
+                    }
+                    Menu {
+                        Toggle(isOn: $iconStyle) {
+                            Label("Icon Style", systemImage: "sparkles")
+                        }
+                    } label: {
+                        Label("Options", systemImage: "ellipsis.circle")
+                            .labelStyle(.iconOnly)
+                    }
+                }
+                #endif
+                
             }
             .task {
                 model.loading.toggle()
