@@ -98,12 +98,6 @@ struct WeatherDetailView: View {
                     .padding(.vertical)
                     
                     LazyVGrid(columns: layout) {
-                        // MARK: - Wind
-                        WeatherItemDetailView(
-                            icon: "wind",
-                            title: "WIND",
-                            value: mf.string(from: city.wind.cleanSpeed)
-                        )
                         // MARK: - Humidity
                         WeatherItemDetailView(
                             icon: "humidity.fill",
@@ -122,23 +116,35 @@ struct WeatherDetailView: View {
                             title: "PRESSURE",
                             value: mf.string(from: city.main.cleanPressure)
                         )
+                        // MARK: - Sunrise
+                        WeatherItemDetailView(
+                            icon: "sunrise.fill",
+                            title: "SUNRISE",
+                            value: city.sys.sunRiseDate
+                        )
+                        // MARK: - Sunset
+                        WeatherItemDetailView(
+                            icon: "sunset.fill",
+                            title: "SUNSET",
+                            value: city.sys.sunsetDate
+                        )
                         // MARK: - Visibility
                         WeatherItemDetailView(
                             icon: "eye.fill",
                             title: "VISIBILITY",
                             value: mf.string(from: city.cleanVisibility)
                         )
-                        
+                        // MARK: - Wind speed
                         WeatherItemDetailView(
-                            icon: "sunrise.fill",
-                            title: "SUNRISE",
-                            value: city.sys.sunRiseDate
+                            icon: "wind",
+                            title: "WIND",
+                            value: mf.string(from: city.wind.cleanSpeed)
                         )
-                        
+                        // MARK: - Wind degree
                         WeatherItemDetailView(
-                            icon: "sunset.fill",
-                            title: "SUNSET",
-                            value: city.sys.sunsetDate
+                            icon: "safari.fill",
+                            title: "WIND DEGREE",
+                            value: "\(city.wind.deg.formatted())°"
                         )
                     }
                     .padding()
