@@ -55,6 +55,7 @@ struct WeatherDetailView: View {
                             .shadow(radius: 1)
                             .padding(.vertical, 50)
                             .padding(.horizontal)
+                            .frame(maxHeight: 180)
                     } else {
                         AsyncImage(url: city.weather.first?.iconURL) { phase in
                             switch phase {
