@@ -32,6 +32,14 @@ struct WeatherListView: View {
                         CityListItem(city: city)
                     }
                 }
+                .onDelete {
+                    model.cities.remove(atOffsets: $0)
+                    model.savedCities.remove(atOffsets: $0)
+                }
+                .onMove {
+                    model.cities.move(fromOffsets: $0, toOffset: $1)
+                    model.savedCities.move(fromOffsets: $0, toOffset: $1)
+                }
             }
             #if os(macOS)
             .frame(minWidth: 300)
@@ -56,6 +64,11 @@ struct WeatherListView: View {
                         Label("Add city", systemImage: "plus")
                     }
                 }
+                #if os(iOS)
+                ToolbarItem {
+                    EditButton()
+                }
+                #endif
                 ToolbarItem {
                     Menu {
                         Toggle(isOn: $iconStyle) {
