@@ -163,10 +163,16 @@ struct WeatherDetailView: View {
 
 struct WeatherDetailView_Previews: PreviewProvider {
     static var previews: some View {
+        #if os(iOS)
         NavigationView {
             WeatherDetailView(
                 city: CityDetail.mock
             )
         }
+        #elseif os(macOS)
+        WeatherDetailView(
+            city: CityDetail.mock
+        )
+        #endif
     }
 }
