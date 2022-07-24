@@ -11,7 +11,7 @@
 ### Configure the project 🛠
 
 - Clone the project
-- Open __`Config.xconfig`__ file with any editor except **xcode** and change __`WEATHER_APP_ID`__'s value to your **new app bundle identifier**. Also change __`OPEN_WEATHER_API_KEY`__'s value to your OpenWeatherMap API Key (you can obtain it [here](https://openweathermap.org/api)).
+- **<span style="color:red">Important:</span>** Open __`Config.xconfig`__ file with any editor except **xcode** and change __`WEATHER_APP_ID`__'s value to your **new app bundle identifier**. Also change __`OPEN_WEATHER_API_KEY`__'s value to your <span style="color:red">OpenWeatherMap API Key</span> (you can obtain it [here](https://openweathermap.org/api)).
 - Open the __`Weather.xcodeproj`__ file with xcode, open the project's file and go to __`Signing & Capabilities`__ and change the __`team`__.
 - Build & run.
 
