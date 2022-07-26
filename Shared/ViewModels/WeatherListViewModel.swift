@@ -36,39 +36,35 @@ class WeatherListViewModel: ObservableObject {
             self.error = nil
         }
         
-        Task(priority: .background) {
+        do {
             let result = try await weatherService.getWeatherGroup(
                 cities: savedCities,
                 unit: "metric"
             )
-            
             DispatchQueue.main.async {
-                self.loading = false
+                self.cities = result.list
             }
-            
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.cities = response.list
-                }
-            case .failure(let error):
-                switch error {
-                case .decode:
-                    setErrorMessage("Failed to execute, try later")
-                case .invalidURL:
-                    setErrorMessage("Invalid URL")
-                case .noResponse:
-                    setErrorMessage("Network error, Try again")
-                case .notFound:
-                    setErrorMessage("Not found")
-                case .unauthorized(let data):
-                    setErrorMessage(try await decodeErrorMessage(data))
-                case .unexpectedStatusCode(let status):
-                    setErrorMessage("Unexpected Status Code \(status) occured")
-                case .unknown(_):
-                    setErrorMessage("Network error, Try again")
-                }
+        } catch {
+            switch error as? RequestError {
+            case .decode:
+                setErrorMessage("Failed to execute, try later")
+            case .invalidURL:
+                setErrorMessage("Invalid URL")
+            case .noResponse:
+                setErrorMessage("Network error, Try again")
+            case .notFound:
+                setErrorMessage("Not found")
+            case .unauthorized(let data):
+                setErrorMessage(decodeErrorMessage(data))
+            case .unexpectedStatusCode(let status):
+                setErrorMessage("Unexpected Status Code \(status) occured")
+            default:
+                setErrorMessage("Network error, Try again")
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.loading = false
         }
     }
     
@@ -82,49 +78,45 @@ class WeatherListViewModel: ObservableObject {
             self.addLoading = true
         }
         
-        Task(priority: .background) {
+        do {
             let result = try await weatherService.getWeatherOfCity(
                 city: addCityName,
                 unit: "metric"
             )
             
             DispatchQueue.main.async {
-                self.addLoading = false
+                self.savedCities.append(String(result.id))
+                self.showAddCityView = false
+                self.addCityName = ""
+                self.cities.removeAll()
             }
             
-            switch result {
-            case .success(let response):
-                DispatchQueue.main.async {
-                    self.savedCities.append(String(response.id))
-                    self.showAddCityView = false
-                    self.addCityName = ""
-                    self.cities.removeAll()
-                    Task.init {
-                        await self.getListData()
-                    }
-                }
-            case .failure(let error):
-                switch error {
-                case .decode:
-                    setAddErrorMessage("Failed to execute, try later")
-                case .invalidURL:
-                    setAddErrorMessage("Invalid URL")
-                case .noResponse:
-                    setAddErrorMessage("Network error, Try again")
-                case .notFound:
-                    setAddErrorMessage("City Not found")
-                case .unauthorized(let data):
-                    setAddErrorMessage(try await decodeErrorMessage(data))
-                case .unexpectedStatusCode(let status):
-                    setAddErrorMessage("Unexpected Status Code \(status) occured")
-                case .unknown(_):
-                    setAddErrorMessage("Network error, Try again")
-                }
+            await self.getListData()
+        } catch {
+            switch error as? RequestError {
+            case .decode:
+                setAddErrorMessage("Failed to execute, try later")
+            case .invalidURL:
+                setAddErrorMessage("Invalid URL")
+            case .noResponse:
+                setAddErrorMessage("Network error, Try again")
+            case .notFound:
+                setAddErrorMessage("City Not found")
+            case .unauthorized(let data):
+                setAddErrorMessage(decodeErrorMessage(data))
+            case .unexpectedStatusCode(let status):
+                setAddErrorMessage("Unexpected Status Code \(status) occured")
+            default:
+                setAddErrorMessage("Network error, Try again")
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.addLoading = false
         }
     }
     
-    func decodeErrorMessage(_ data: Data) async throws -> String {
+    func decodeErrorMessage(_ data: Data) -> String {
         do {
             return try JSONDecoder().decode(OpenWeatherError.self, from: data).message
         } catch {

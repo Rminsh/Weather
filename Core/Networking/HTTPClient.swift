@@ -11,14 +11,14 @@ protocol HTTPClient {
     func sendRequest<T: Decodable>(
         endpoint: Endpoint,
         responseModel: T.Type
-    ) async throws -> Result<T, RequestError>
+    ) async throws -> T
 }
 
 extension HTTPClient {
     func sendRequest<T: Decodable>(
         endpoint: Endpoint,
         responseModel: T.Type
-    ) async throws -> Result<T, RequestError> {
+    ) async throws -> T {
         
         var urlComponents = URLComponents(string: endpoint.baseURL + endpoint.path)
         
@@ -27,7 +27,7 @@ extension HTTPClient {
         }
         
         guard let url = urlComponents?.url else {
-            return .failure(.invalidURL)
+            throw RequestError.invalidURL
         }
         
         var request = URLRequest(url: url)
@@ -40,27 +40,29 @@ extension HTTPClient {
         do {
             let (data, response) = try await URLSession.shared.data(for: request, delegate: nil)
             guard let response = response as? HTTPURLResponse else {
-                return .failure(.noResponse)
+                throw RequestError.noResponse
             }
             switch response.statusCode {
             case 200...299:
                 do {
                     let decodedResponse = try JSONDecoder().decode(responseModel, from: data)
-                    return .success(decodedResponse)
+                    return decodedResponse
                 } catch {
+                    #if DEBUG
                     print("💥 Execute error:")
                     print(error)
-                    return .failure(.decode)
+                    #endif
+                    throw RequestError.decode
                 }
             case 400, 401:
-                return .failure(.unauthorized(data))
+                throw RequestError.unauthorized(data)
             case 404:
-                return .failure(.notFound)
+                throw RequestError.notFound
             default:
-                return .failure(.unexpectedStatusCode(response.statusCode))
+                throw RequestError.unexpectedStatusCode(response.statusCode)
             }
         } catch {
-            return .failure(.unknown("Network error"))
+            throw RequestError.unknown("Network error")
         }
     }
 }
