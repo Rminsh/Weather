@@ -29,10 +29,6 @@ extension WeatherEndpoint: Endpoint {
         }
     }
     
-    var method: HTTPMethod {
-        return .get
-    }
-    
     var header: [String : String]? {
         return ["Content-Type":"\(HTTPContentType.applicationJSON); \(HTTPContentType.charsetUTF8)"]
     }
