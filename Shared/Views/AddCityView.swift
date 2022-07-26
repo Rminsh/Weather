@@ -20,7 +20,6 @@ struct AddCityView: View {
         #if os(iOS)
         NavigationView {
             content
-                .navigationTitle("Add City")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -30,6 +29,15 @@ struct AddCityView: View {
                     }
                 }
         }
+        .frame(
+            minWidth: 320,
+            idealWidth: 400,
+            maxWidth: nil,
+            minHeight: 250,
+            idealHeight: 500,
+            maxHeight: nil,
+            alignment: .top
+        )
         #else
         content
             .frame(width: 320, height: 350)
@@ -43,14 +51,17 @@ struct AddCityView: View {
                 .dynamicTypeSize(.xSmall ... .xxLarge)
                 .lineLimit(1)
                 .minimumScaleFactor(0.4)
-                .padding()
                 .opacity(0.75)
             
             Text("Add City")
+                .font(.title3)
+                .fontWeight(.semibold)
+                .dynamicTypeSize(.xSmall ... .large)
+                .minimumScaleFactor(0.4)
             
             Label {
                 TextField("City name", text: $cityName)
-                    .frame(maxWidth: 250)
+                    .frame(width: 250)
                     
             } icon: {
                 Image(systemName: "magnifyingglass")
@@ -84,6 +95,7 @@ struct AddCityView: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.4)
         }
+        .padding()
         .onDisappear {
             self.loading = false
             self.cityName = ""
