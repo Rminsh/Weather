@@ -49,8 +49,4 @@ extension WeatherEndpoint: Endpoint {
             ]
         }
     }
-    
-    var body: [String : Any]? {
-        return nil
-    }
 }
