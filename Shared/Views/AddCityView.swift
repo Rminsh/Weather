@@ -12,7 +12,7 @@ struct AddCityView: View {
     @Binding var cityName: String
     @Binding var loading: Bool
     @Binding var warningMessage: String
-    @State var action: () -> Void
+    @State var action: () async -> Void
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -61,7 +61,11 @@ struct AddCityView: View {
                 ProgressView()
                     .progressViewStyle(.circular)
             } else {
-                Button(action: action) {
+                Button(action: {
+                    Task.init {
+                        action
+                    }
+                }) {
                     Text("Search & Add")
                         .fontWeight(.semibold)
                 }

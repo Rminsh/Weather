@@ -57,9 +57,7 @@ struct WeatherListView: View {
                     loading: $model.addLoading,
                     warningMessage: $model.addError
                 ) {
-                    Task.init {
-                        await model.addCity()
-                    }
+                    await model.addCity()
                 }
             }
             .toolbar {
