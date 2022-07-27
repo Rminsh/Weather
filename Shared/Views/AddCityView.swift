@@ -74,7 +74,7 @@ struct AddCityView: View {
             } else {
                 Button(action: {
                     Task.init {
-                        action
+                        await action()
                     }
                 }) {
                     Text("Search & Add")
