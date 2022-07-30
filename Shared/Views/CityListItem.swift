@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CityListItem: View {
     
-    @State var city: CityDetail
+    @State var city: WeatherOfCity
     
     @AppStorage("iconStyle") var iconStyle: Bool = true
     
@@ -94,7 +94,7 @@ struct CityListItem: View {
 struct CityListItem_Previews: PreviewProvider {
     static var previews: some View {
         CityListItem(
-            city: CityDetail.mock
+            city: WeatherOfCity.mock
         )
         .padding()
     }

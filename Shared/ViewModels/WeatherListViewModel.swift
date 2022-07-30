@@ -19,7 +19,7 @@ class WeatherListViewModel: ObservableObject {
     ]
     
     // WeatherList
-    @Published var cities: [CityDetail] = [CityDetail]()
+    @Published var cities: [WeatherOfCity] = [WeatherOfCity]()
     @Published var loading: Bool = false
     @Published var error: String? = nil
     

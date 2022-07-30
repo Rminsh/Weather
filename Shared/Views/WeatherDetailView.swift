@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WeatherDetailView: View {
     
-    @State var city: CityDetail
+    @State var city: WeatherOfCity
     
     @AppStorage("iconStyle") var iconStyle: Bool = true
     
@@ -145,7 +145,7 @@ struct WeatherDetailView: View {
                         WeatherItemDetailView(
                             icon: "safari.fill",
                             title: "WIND DEGREE",
-                            value: "\(city.wind.deg.formatted())°"
+                            value: "\(city.wind.degree.formatted())°"
                         )
                     }
                     .padding()
@@ -166,12 +166,12 @@ struct WeatherDetailView_Previews: PreviewProvider {
         #if os(iOS)
         NavigationView {
             WeatherDetailView(
-                city: CityDetail.mock
+                city: WeatherOfCity.mock
             )
         }
         #elseif os(macOS)
         WeatherDetailView(
-            city: CityDetail.mock
+            city: WeatherOfCity.mock
         )
         #endif
     }

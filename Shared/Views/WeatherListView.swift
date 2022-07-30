@@ -14,7 +14,7 @@ struct WeatherListView: View {
     @AppStorage("iconStyle") var iconStyle: Bool = true
     @State private var searchText = ""
     
-    var searchResults: [CityDetail] {
+    var searchResults: [WeatherOfCity] {
         if searchText.isEmpty {
             return model.cities
         } else {
