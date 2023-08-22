@@ -10,8 +10,6 @@ import SwiftUI
 struct WeatherListView: View {
     
     @StateObject var model: WeatherListViewModel = WeatherListViewModel()
-    
-    @AppStorage("iconStyle") var iconStyle: Bool = true
     @State private var searchText = ""
     
     var searchResults: [WeatherOfCity] {
@@ -66,37 +64,12 @@ struct WeatherListView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {model.showAddCityView = true}) {
-                        Label("Add city", systemImage: "plus")
-                    }
-                    
-                    
-                    Menu {
-                        Toggle(isOn: $iconStyle) {
-                            Label("Icon Style", systemImage: "sparkles")
-                        }
-                    } label: {
-                        Label("Options", systemImage: "ellipsis.circle")
-                            .labelStyle(.iconOnly)
-                    }
-                }
-                #else
+                #endif
                 ToolbarItemGroup {
                     Button(action: {model.showAddCityView = true}) {
                         Label("Add city", systemImage: "plus")
                     }
-                    Menu {
-                        Toggle(isOn: $iconStyle) {
-                            Label("Icon Style", systemImage: "sparkles")
-                        }
-                    } label: {
-                        Label("Options", systemImage: "ellipsis.circle")
-                            .labelStyle(.iconOnly)
-                    }
                 }
-                #endif
-                
             }
             .task {
                 model.loading.toggle()

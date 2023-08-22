@@ -18,10 +18,6 @@ struct WeatherDetail: Codable {
         case icon
     }
     
-    var iconURL: URL {
-        return URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png")!
-    }
-    
     var symbolIcon: WeatherIconModel {
         switch icon {
         case "01d":

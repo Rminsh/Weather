@@ -11,8 +11,6 @@ struct CityListItem: View {
     
     var city: WeatherOfCity
     
-    @AppStorage("iconStyle") var iconStyle: Bool = true
-    
     var mf: MeasurementFormatter {
         let mf = MeasurementFormatter()
         mf.numberFormatter.maximumFractionDigits = 0
@@ -22,34 +20,13 @@ struct CityListItem: View {
     
     var body: some View {
         HStack(spacing: 15) {
-            if iconStyle {
-                Image(systemName: city.weather.first?.symbolIcon.symbol ?? "exclamationmark.icloud")
-                    .font(.largeTitle)
-                    .dynamicTypeSize(.xSmall ... .large)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.4)
-                    .symbolRenderingMode(.multicolor)
-                    .shadow(radius: 1)
-            } else {
-                AsyncImage(url: city.weather.first?.iconURL) { phase in
-                    switch phase {
-                    case .empty:
-                        Color.gray.opacity(0.1)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    case .failure(_):
-                        Image(systemName: "exclamationmark.icloud")
-                            .resizable()
-                            .scaledToFit()
-                    @unknown default:
-                        Image(systemName: "exclamationmark.icloud")
-                    }
-                }
-                .frame(width: 40, height: 40)
-                .cornerRadius(20)
-            }
+            Image(systemName: city.weather.first?.symbolIcon.symbol ?? "exclamationmark.icloud")
+                .font(.largeTitle)
+                .dynamicTypeSize(.xSmall ... .large)
+                .lineLimit(1)
+                .minimumScaleFactor(0.4)
+                .symbolRenderingMode(.multicolor)
+                .shadow(radius: 1)
             
             VStack(alignment: .leading) {
                 Text(city.name)
