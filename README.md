@@ -1,8 +1,9 @@
 <p align="center">
-  <img src="Shared/Resources/Assets.xcassets/AppIcon.appiconset/icon_512x512@2x@2x.png" height="192">
+  <img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_512x512@2x@2x.png" height="192">
   <h1 align="center">Weather</h1>
 	<h4 align="center">An OpenWeatherMap client for iOS and macOS</h4>
 </p>
+
 
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-black?logo=swift)
 ![Supported platforms](https://img.shields.io/badge/Platforms-iOS%2015.0+%20|%20macOS%2012.0-white?logo=apple)
