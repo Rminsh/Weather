@@ -9,9 +9,9 @@ import SwiftUI
 
 struct WeatherItemDetailView: View {
     
-    @State var icon: String
-    @State var title: String
-    @State var value: String
+    var icon: String
+    var title: String
+    var value: String
     
     var body: some View {
         HStack {

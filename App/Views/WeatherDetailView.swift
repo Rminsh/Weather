@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WeatherDetailView: View {
     
-    @State var city: WeatherOfCity
+    var city: WeatherOfCity
     
     @AppStorage("iconStyle") var iconStyle: Bool = true
     
