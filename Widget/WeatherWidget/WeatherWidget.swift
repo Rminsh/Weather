@@ -59,30 +59,47 @@ struct WeatherWidgetEntryView : View {
     
     var body: some View {
         HStack {
-            Text("\(entry.city.main.temp.formatted(.number.precision(.fractionLength(0))))°")
-                .font(.largeTitle)
-                .fontWeight(.medium)
-                .fontDesign(.rounded)
+            tempText
+                .contentTransition(.numericText())
             
-            VStack {
-                Text(entry.city.name)
-                    .font(.callout)
-                    .fontWeight(.medium)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                
-                Text(entry.city.weather.first?.main ?? "")
-                    .font(.caption)
-                    .fontWeight(.light)
-                    .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+            detailsView
+                .id(entry.city.weather.first?.id)
+                .transition(.push(from: .bottom))
         }
         .foregroundStyle(.white)
         .shadow(radius: 4)
         .frame(maxHeight: .infinity, alignment: .bottom)
+    }
+    
+    var tempText: some View {
+        if #available(iOSApplicationExtension 16.1, *) {
+            Text("\(entry.city.main.temp.formatted(.number.precision(.fractionLength(0))))°")
+                .font(.largeTitle)
+                .fontWeight(.medium)
+                .fontDesign(.rounded)
+        } else {
+            Text("\(entry.city.main.temp.formatted(.number.precision(.fractionLength(0))))°")
+                .font(.largeTitle)
+                .fontWeight(.medium)
+        }
+    }
+    
+    var detailsView: some View {
+        VStack {
+            Text(entry.city.name)
+                .font(.callout)
+                .fontWeight(.medium)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            Text(entry.city.weather.first?.main ?? "")
+                .font(.caption)
+                .fontWeight(.light)
+                .multilineTextAlignment(.trailing)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+        }
     }
 }
 
@@ -117,4 +134,5 @@ struct WeatherWidget: Widget {
     WeatherWidget()
 } timeline: {
     WeatherEntry(date: .now, city: .mock)
+    WeatherEntry(date: .now, city: .mock2)
 }

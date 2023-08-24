@@ -73,6 +73,44 @@ extension WeatherOfCity {
         id: 2711537,
         name: "Gothenburg"
     )
+    
+    static let mock2 = WeatherOfCity(
+        coord: Coordinates(
+            longitude: 51.4215,
+            latitude: 35.6944
+        ),
+        sys: RegionDetails(
+            country: "IR",
+            timezone: 12600,
+            sunrise: 1692755950,
+            sunset: 1692803726
+        ),
+        weather: [
+            WeatherDetail(
+                id: 801,
+                main: "Clouds",
+                weatherDescription: "few clouds",
+                icon: "02d"
+            )
+        ],
+        main: WeatherMain(
+            temp: 31.99,
+            feelsLike: 29.75,
+            tempMin: 31.99,
+            tempMax: 31.99,
+            pressure: 1017,
+            humidity: 13
+        ),
+        visibility: 10000,
+        wind: Wind(
+            speed: 3.09,
+            degree: 210
+        ),
+        clouds: Clouds(all: 1),
+        dt: 1692770943,
+        id: 112931,
+        name: "Tehran"
+    )
 }
 
 // MARK: - Clouds
