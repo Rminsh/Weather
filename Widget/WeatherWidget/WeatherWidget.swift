@@ -62,25 +62,29 @@ struct WeatherWidgetEntryView : View {
             tempText
                 .contentTransition(.numericText())
             
+            Spacer()
+            
             detailsView
                 .id(entry.city.weather.first?.id)
                 .transition(.push(from: .bottom))
         }
         .foregroundStyle(.white)
-        .shadow(radius: 4)
+        .shadow(color: .black.opacity(0.75), radius: 4)
         .frame(maxHeight: .infinity, alignment: .bottom)
     }
     
     var tempText: some View {
-        if #available(iOSApplicationExtension 16.1, *) {
-            Text("\(entry.city.main.temp.formatted(.number.precision(.fractionLength(0))))°")
-                .font(.largeTitle)
-                .fontWeight(.medium)
-                .fontDesign(.rounded)
-        } else {
-            Text("\(entry.city.main.temp.formatted(.number.precision(.fractionLength(0))))°")
-                .font(.largeTitle)
-                .fontWeight(.medium)
+        Group {
+            if #available(iOSApplicationExtension 16.1, *) {
+                Text(temp.dropLast())
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
+                    .fontDesign(.rounded)
+            } else {
+                Text(temp.dropLast())
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
+            }
         }
     }
     
@@ -135,4 +139,6 @@ struct WeatherWidget: Widget {
 } timeline: {
     WeatherEntry(date: .now, city: .mock)
     WeatherEntry(date: .now, city: .mock2)
+    WeatherEntry(date: .now, city: .mock3)
+    WeatherEntry(date: .now, city: .mock4)
 }

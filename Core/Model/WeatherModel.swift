@@ -111,6 +111,82 @@ extension WeatherOfCity {
         id: 112931,
         name: "Tehran"
     )
+    
+    static let mock3 = WeatherOfCity(
+        coord: Coordinates(
+            longitude: -0.1257,
+            latitude: 51.5085
+        ),
+        sys: RegionDetails(
+            country: "GB",
+            timezone: 3600,
+            sunrise: 1692853190,
+            sunset: 1692903993
+        ),
+        weather: [
+            WeatherDetail(
+                id: 500,
+                main: "Rain",
+                weatherDescription: "light rain",
+                icon: "10d"
+            )
+        ],
+        main: WeatherMain(
+            temp: 17.74,
+            feelsLike: 17.95,
+            tempMin: 15.83,
+            tempMax: 18.86,
+            pressure: 1011,
+            humidity: 91
+        ),
+        visibility: 10000,
+        wind: Wind(
+            speed: 1.03,
+            degree: 0
+        ),
+        clouds: Clouds(all: 100),
+        dt: 1692861401,
+        id: 2643743,
+        name: "London"
+    )
+    
+    static let mock4 = WeatherOfCity(
+        coord: Coordinates(
+            longitude: -74.006,
+            latitude: 40.7143
+        ),
+        sys: RegionDetails(
+            country: "US",
+            timezone: -14400,
+            sunrise: 1692872106,
+            sunset: 1692920533
+        ),
+        weather: [
+            WeatherDetail(
+                id: 804,
+                main: "Clouds",
+                weatherDescription: "overcast clouds",
+                icon: "04n"
+            )
+        ],
+        main: WeatherMain(
+            temp: 21.16,
+            feelsLike: 21.16,
+            tempMin: 18.41,
+            tempMax: 22.34,
+            pressure: 1018,
+            humidity: 70
+        ),
+        visibility: 10000,
+        wind: Wind(
+            speed: 3.6,
+            degree: 180
+        ),
+        clouds: Clouds(all: 100),
+        dt: 1692861717,
+        id: 5128581,
+        name: "New York"
+    )
 }
 
 // MARK: - Clouds
